@@ -4,8 +4,15 @@ class Todo:
         self.title = title
         self.done = done
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "done": self.done
+        }
+
     def __repr__(self):
         return f"Todo(id={self.id}, title='{self.title}', done={self.done})"
     
 sample = Todo(10, "山田", True)
-print(sample)
+print(sample.to_dict())
