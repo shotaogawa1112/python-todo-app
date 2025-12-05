@@ -14,5 +14,3 @@ class Todo:
     def __repr__(self):
         return f"Todo(id={self.id}, title='{self.title}', done={self.done})"
     
-sample = Todo(10, "山田", True)
-print(sample.to_dict())

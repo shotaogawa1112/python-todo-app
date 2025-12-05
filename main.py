@@ -21,29 +21,38 @@ def show_todos(todos):
         print(f"{todo.id}. {todo.title} [{status}]")
 
 def add_todo(todos):
-    title = input("追加するタスク名を入力してください： ")
+    title = input("追加するタスク名を入力： ")
+    if not title.strip():
+        print("空白のみの入力は不可です。")
+        return
     new_id = max([t.id for t in todos], default=0) + 1
     todo = Todo(new_id, title, False)
     todos.append(todo)
     print(f"タスク '{title}' を追加しました！")
 
 def toggle_todo(todos):
-    task_id = int(input("完了状態を切り替えるタスクIDを入力： "))
-    for todo in todos:
-        if todo.id == task_id:
-            todo.done = not todo.done
-            print(f"タスク {todo.id} の状態を変更しました！")
-            return
-    print("指定されたIDのタスクがありません。")
+    try:
+        task_id = int(input("完了状態を切り替えるタスクIDを入力： "))
+        for todo in todos:
+            if todo.id == task_id:
+                todo.done = not todo.done
+                print(f"タスク {todo.id} の状態を変更しました！")
+                return
+        print("指定されたIDのタスクがありません。")
+    except ValueError:
+        print("整数値を入力してください。")
 
 def delete_todo(todos):
-    task_id = int(input("削除するタスクIDを入力： "))
-    for todo in todos:
-        if todo.id == task_id:
-            todos.remove(todo)
-            print(f"タスク {task_id} を削除しました！")
-            return
-    print("指定されたIDのタスクがありません。")
+    try:
+        task_id = int(input("削除するタスクIDを入力： "))
+        for todo in todos:
+            if todo.id == task_id:
+                todos.remove(todo)
+                print(f"タスク {task_id} を削除しました！")
+                return
+        print("指定されたIDのタスクがありません。")
+    except ValueError:
+        print("整数値を入力してください。")
 
 def main():
     todos = load_todos(FILE_PATH)
@@ -68,11 +77,11 @@ def main():
             save_todos(FILE_PATH, todos)
 
         elif choice == "5":
-            print("終了します！")
+            print("終了します。")
             break
 
         else:
-            print("正しい番号を入力してください！")
+            print("正しい番号を入力してください。")
 
 
 if __name__ == "__main__":
